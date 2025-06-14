@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>تهنئة التخرج</title>
     <style>
-        body {
+         body {
     font-family: 'Tahoma', sans-serif;
     text-align: center;
     padding: 50px;
@@ -24,6 +24,8 @@ body::before {
     opacity: 0.2; /* شفافية 20% */
     z-index: -1;
 }
+
+
         h1 {
             color: #9B2233;
         }
@@ -54,6 +56,9 @@ body::before {
             display: none;
         }
     </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
 </head>
 <body>
     <h1>🎓 تهنئة التخرج</h1>
@@ -61,8 +66,9 @@ body::before {
     <input type="number" id="seatInput" placeholder="رقم المقعد">
     <br>
     <button onclick="showMessage()">عرض التهنئة</button>
-    <div class="message" id="messageBox"></div>
-    <img id="studentImage" style="margin-top:20px; width:200px; border-radius:15px; display:none;">
+    <div id="resultContainer" style="display:flex; align-items:center; justify-content:center; gap:30px; margin-top:30px;">
+        <div class="message" id="messageBox"></div>
+        <img id="studentImage" style="margin-top:20px; width:200px; border-radius:15px; display:none; max-width:200px; border-radius:15px;">
     <audio id="gradAudio" src="khawla.mp3"></audio>
 
     <script>
@@ -241,6 +247,13 @@ body::before {
                 box.innerHTML = `العزيزة <strong>${name}</strong> .. <br> أسرة منجزون وسعداء تفخر بك .. <br><strong>"انتِ كفو !"</strong>`;
                 box.style.display = 'block';
                 audio.play();
+                // إطلاق الزينة بعد عرض الرسالة
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: {{ y: 0.6 }}
+                });
+
                 img.onerror = () => {
                     img.src = `images/${seatNumber}.jpeg`;
                 };
